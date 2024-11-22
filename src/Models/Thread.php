@@ -41,6 +41,13 @@ class Thread extends Model
         return $this->morphTo();
     }
 
+    public function refreshCommentCount(): static
+    {
+        $this->comment_count = $this->comments()->count();
+
+        return $this;
+    }
+
     public function setSlug()
     {
         $slug = $this->slug ?? $this->title;
