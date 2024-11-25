@@ -2,7 +2,7 @@
 
 return [
     'models' => [
-        'thread' => BalajiDharma\LaravelForum\Models\Threads::class,
+        'thread' => BalajiDharma\LaravelForum\Models\Thread::class,
     ],
 
     'table_names' => [
