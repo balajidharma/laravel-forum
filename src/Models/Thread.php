@@ -43,9 +43,14 @@ class Thread extends Model
 
     public function refreshCommentCount(): static
     {
-        $this->comment_count = $this->comments()->count();
+        $this->comment_count = $this->approvedComments()->count();
 
         return $this;
+    }
+
+    public function updateStatistics()
+    {
+        $this->refreshCommentCount()->save();
     }
 
     public function setSlug()
