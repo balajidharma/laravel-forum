@@ -2,7 +2,7 @@
 
 namespace BalajiDharma\LaravelForum\Listeners;
 
-use Balajidharma\LaravelForum\Models\Thread;
+use BalajiDharma\LaravelForum\Models\Thread;
 use Illuminate\Support\Facades\Config;
 
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Balajidharma\LaravelForum\Models;
+namespace BalajiDharma\LaravelForum\Models;
 
-use Balajidharma\LaravelComment\Traits\HasComments;
+use BalajiDharma\LaravelComment\Traits\HasComments;
 use BalajiDharma\LaravelCategory\Traits\HasCategories;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
