@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Thread extends Model
 {
@@ -58,18 +59,27 @@ class Thread extends Model
         $slug = $this->slug ?? $this->title;
         $slug = \Str::slug($slug);
 
+        $regexOperators = [
+            'mysql' => 'RLIKE',
+            'pgsql' => '~',
+            'sqlite' => 'REGEXP'
+        ];
+
+        $driver = DB::connection()->getDriverName();
+        $regexOperator = $regexOperators[$driver] ?? 'mysql';
+
         if ($this->id) {
             $similarSlugs = Thread::where(function (Builder $q) use ($slug) {
                 $q->where('slug', '=', $slug)
                     ->where('id', '!=', $this->id);
-            })->where(function (Builder $q) use ($slug) {
+            })->where(function (Builder $q) use ($slug, $regexOperator) {
                 $q->where('id', '!=', $this->id)
-                    ->orWhereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'");
+                    ->orWhereRaw("slug {$regexOperator} '^{$slug}(-[0-9]+)?$'");
             })->select('slug')->get();
         } else {
-            $similarSlugs = Thread::where(function (Builder $q) use ($slug) {
+            $similarSlugs = Thread::where(function (Builder $q) use ($slug, $regexOperator) {
                 $q->where('slug', '=', $slug)
-                    ->orWhereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'");
+                    ->orWhereRaw("slug {$regexOperator} '^{$slug}(-[0-9]+)?$'");
             })->select('slug')->get();
         }
 
