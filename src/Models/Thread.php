@@ -9,13 +9,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-use Oddvalue\LaravelDrafts\Concerns\HasDrafts;
 
 class Thread extends Model
 {
-    use HasCategories, HasComments, HasDrafts, HasFactory, SoftDeletes;
-
-    public $commentable_key = 'uuid';
+    use HasCategories, HasComments, HasFactory, SoftDeletes;
 
     protected $fillable = [
         'title',
