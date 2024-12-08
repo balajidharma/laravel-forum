@@ -6,7 +6,7 @@ return [
     ],
 
     'table_names' => [
-        'threads' => 'threads'
+        'threads' => 'threads',
     ],
 
     'category_name' => 'forum_category',
@@ -18,6 +18,6 @@ return [
         'approved' => 1,
         'rejected' => 2,
         'spam' => 3,
-        'locked' => 4, 
-    ]
+        'locked' => 4,
+    ],
 ];

@@ -2,10 +2,10 @@
 
 namespace BalajiDharma\LaravelForum\Providers;
 
-use BalajiDharma\LaravelForum\Listeners\UpdateThreadStatistics;
 use BalajiDharma\LaravelComment\Events\CommentCreated;
-use BalajiDharma\LaravelComment\Events\CommentUpdated;
 use BalajiDharma\LaravelComment\Events\CommentDeleted;
+use BalajiDharma\LaravelComment\Events\CommentUpdated;
+use BalajiDharma\LaravelForum\Listeners\UpdateThreadStatistics;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider

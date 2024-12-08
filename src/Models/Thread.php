@@ -2,17 +2,20 @@
 
 namespace BalajiDharma\LaravelForum\Models;
 
-use BalajiDharma\LaravelComment\Traits\HasComments;
 use BalajiDharma\LaravelCategory\Traits\HasCategories;
+use BalajiDharma\LaravelComment\Traits\HasComments;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Oddvalue\LaravelDrafts\Concerns\HasDrafts;
 
 class Thread extends Model
 {
-    use HasFactory, HasComments, HasCategories, SoftDeletes;
+    use HasCategories, HasComments, HasDrafts, HasFactory, SoftDeletes;
+
+    public $commentable_key = 'uuid';
 
     protected $fillable = [
         'title',
@@ -62,7 +65,7 @@ class Thread extends Model
         $regexOperators = [
             'mysql' => 'RLIKE',
             'pgsql' => '~',
-            'sqlite' => 'REGEXP'
+            'sqlite' => 'REGEXP',
         ];
 
         $driver = DB::connection()->getDriverName();

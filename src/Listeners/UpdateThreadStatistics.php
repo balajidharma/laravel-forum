@@ -5,7 +5,6 @@ namespace BalajiDharma\LaravelForum\Listeners;
 use BalajiDharma\LaravelForum\Models\Thread;
 use Illuminate\Support\Facades\Config;
 
-
 class UpdateThreadStatistics
 {
     public function handle($event)
