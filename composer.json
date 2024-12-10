@@ -12,7 +12,9 @@
     "require": {
         "illuminate/support": "^10.0|^11.0",
         "balajidharma/laravel-comment":"^1.0",
-        "balajidharma/laravel-category":"^2.0"
+        "balajidharma/laravel-category":"^2.0",
+        "balajidharma/laravel-viewable":"^1.0",
+        "spatie/laravel-activitylog":"^4.9"
     },
     "autoload": {
         "psr-4": {

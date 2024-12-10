@@ -4,15 +4,18 @@ namespace BalajiDharma\LaravelForum\Models;
 
 use BalajiDharma\LaravelCategory\Traits\HasCategories;
 use BalajiDharma\LaravelComment\Traits\HasComments;
+use BalajiDharma\LaravelViewable\Traits\HasViewable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Thread extends Model
 {
-    use HasCategories, HasComments, HasFactory, SoftDeletes;
+    use HasCategories, HasComments, HasViewable, HasFactory, LogsActivity, SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -25,6 +28,8 @@ class Thread extends Model
         'created_at',
     ];
 
+    public $increment_view_count = true;
+
     public static function boot()
     {
         parent::boot();
@@ -32,6 +37,15 @@ class Thread extends Model
         static::saving(function ($model) {
             $model->setSlug();
         });
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['title', 'content', 'status'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->setDescriptionForEvent(fn(string $eventName) => "Thread has been {$eventName}");
     }
 
     /**
