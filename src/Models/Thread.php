@@ -17,6 +17,8 @@ class Thread extends Model
 {
     use HasCategories, HasComments, HasViewable, HasFactory, LogsActivity, SoftDeletes;
 
+    protected $increment_model_view_count = true;
+
     protected $fillable = [
         'title',
         'slug',
