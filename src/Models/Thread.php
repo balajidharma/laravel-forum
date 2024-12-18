@@ -5,6 +5,7 @@ namespace BalajiDharma\LaravelForum\Models;
 use BalajiDharma\LaravelCategory\Traits\HasCategories;
 use BalajiDharma\LaravelComment\Traits\HasComments;
 use BalajiDharma\LaravelViewable\Traits\HasViewable;
+use BalajiDharma\LaravelAttributes\Traits\HasAttributable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Spatie\Activitylog\LogOptions;
 
 class Thread extends Model
 {
-    use HasCategories, HasComments, HasViewable, HasFactory, LogsActivity, SoftDeletes;
+    use HasCategories, HasComments, HasViewable, HasFactory, HasAttributable, LogsActivity, SoftDeletes;
 
     protected $increment_model_view_count = true;
 
