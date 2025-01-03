@@ -2,21 +2,22 @@
 
 namespace BalajiDharma\LaravelForum\Models;
 
+use BalajiDharma\LaravelAttributes\Traits\HasAttributable;
 use BalajiDharma\LaravelCategory\Traits\HasCategories;
 use BalajiDharma\LaravelComment\Traits\HasComments;
+use BalajiDharma\LaravelReaction\Traits\HasReactable;
 use BalajiDharma\LaravelViewable\Traits\HasViewable;
-use BalajiDharma\LaravelAttributes\Traits\HasAttributable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Thread extends Model
 {
-    use HasCategories, HasComments, HasViewable, HasFactory, HasAttributable, LogsActivity, SoftDeletes;
+    use HasAttributable, HasCategories, HasComments, HasFactory, HasReactable, HasViewable, LogsActivity, SoftDeletes;
 
     protected $increment_model_view_count = true;
 
@@ -48,7 +49,7 @@ class Thread extends Model
             ->logOnly(['title', 'content', 'status'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
-            ->setDescriptionForEvent(fn(string $eventName) => "Thread has been {$eventName}");
+            ->setDescriptionForEvent(fn (string $eventName) => "Thread has been {$eventName}");
     }
 
     /**
