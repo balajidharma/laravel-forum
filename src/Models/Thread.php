@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Str;
 
 class Thread extends Model
 {
@@ -104,8 +105,9 @@ class Thread extends Model
         if ($similarSlugs->count()) {
             $valid = 0;
             $i = 1;
+            $random = Str::random(5);
             do {
-                $newSlug = $slug.'-'.$i;
+                $newSlug = $slug.'-'.$random.$i;
                 if ($similarSlugs->firstWhere('slug', $newSlug)) {
                     $i++;
                 } else {
