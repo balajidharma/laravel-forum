@@ -7,6 +7,7 @@ use BalajiDharma\LaravelCategory\Traits\HasCategories;
 use BalajiDharma\LaravelComment\Traits\HasComments;
 use BalajiDharma\LaravelReaction\Traits\HasReactable;
 use BalajiDharma\LaravelViewable\Traits\HasViewable;
+use BalajiDharma\LaravelComment\Traits\HasLogsActivity;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +19,7 @@ use Illuminate\Support\Str;
 
 class Thread extends Model
 {
-    use HasAttributable, HasCategories, HasComments, HasFactory, HasReactable, HasViewable, LogsActivity, SoftDeletes;
+    use HasAttributable, HasCategories, HasComments, HasFactory, HasReactable, HasViewable, HasLogsActivity, SoftDeletes;
 
     protected $increment_model_view_count = true;
 
@@ -42,15 +43,6 @@ class Thread extends Model
         static::saving(function ($model) {
             $model->setSlug();
         });
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logOnly(['title', 'content', 'status'])
-            ->logOnlyDirty()
-            ->dontSubmitEmptyLogs()
-            ->setDescriptionForEvent(fn (string $eventName) => "Thread has been {$eventName}");
     }
 
     /**
