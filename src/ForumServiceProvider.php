@@ -2,6 +2,7 @@
 
 namespace BalajiDharma\LaravelForum;
 
+use BalajiDharma\LaravelForum\Providers\EventServiceProvider;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
@@ -18,6 +19,8 @@ class ForumServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/forum.php', 'forum'
         );
+
+        $this->app->register(EventServiceProvider::class);
     }
 
     /**
